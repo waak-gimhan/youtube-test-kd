@@ -1,0 +1,172 @@
+<html>
+  <head>
+    <title>Start Github</title>
+    <style>
+      .menu-bar {
+        background-color: #333;
+        overflow: hidden;
+        position: relative;
+      }
+      .menu-bar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      .menu-bar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      .hamburger {
+        float: right;
+        display: block;
+        cursor: pointer;
+        padding: 14px 16px;
+      }
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: #f2f2f2;
+        margin: 5px 0;
+        transition: 0.4s;
+      }
+      .dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background-color: #333;
+        min-width: 160px;
+        z-index: 1;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      }
+      .dropdown a {
+        float: none;
+        color: #f2f2f2;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+      .dropdown a:hover {
+        background-color: #575757;
+      }
+      .show {
+        display: block;
+      }
+      section {
+        padding: 40px 20px;
+        text-align: center;
+      }
+      img {
+        width: 120px;
+        border-radius: 50%;
+        margin: 20px 0;
+      }
+      p {
+        font-size: 1.2em;
+      }
+      .button {
+        background: #333;
+        color: #fff;
+        padding: 10px 24px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      .button-secondary {
+        background: #555;
+      }
+      .hidden-section { display: none; }
+    </style>
+    <script>
+      function toggleDropdown() {
+        document.getElementById('dropdownMenu').classList.toggle('show');
+      }
+      window.onclick = function(event) {
+        if (!event.target.matches('.hamburger') && !event.target.closest('.hamburger')) {
+          var dropdowns = document.getElementsByClassName('dropdown');
+          for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
+      // Show only the selected section
+      function showSection(sectionId) {
+        var sections = document.querySelectorAll('section');
+        sections.forEach(function(sec) {
+          sec.classList.add('hidden-section');
+        });
+        var target = document.getElementById(sectionId);
+        if (target) target.classList.remove('hidden-section');
+      }
+      // Add event listeners for nav links
+      window.onload = function() {
+        var navLinks = document.querySelectorAll('.menu-bar a');
+        navLinks.forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            var hash = this.getAttribute('href');
+            if (hash && hash.startsWith('#')) {
+              var sectionId = hash.substring(1);
+              if (document.getElementById(sectionId)) {
+                e.preventDefault();
+                showSection(sectionId);
+                history.replaceState(null, '', hash);
+              }
+            }
+          });
+        });
+        // Show home by default
+        showSection('home');
+      };
+    </script>
+  </head>
+   <body>
+     <div class="menu-bar">
+       <a href="#home">Home</a>
+       <a href="#about">About</a>
+       <a href="#projects">Projects</a>
+       <a href="#contact">Contact</a>
+       <div class="hamburger" onclick="toggleDropdown()" title="Menu">
+         <div></div>
+         <div></div>
+         <div></div>
+       </div>
+       <div id="dropdownMenu" class="dropdown">
+         <a href="#profile">Profile</a>
+         <a href="#history">History</a>
+         <a href="#downloads">Downloads</a>
+         <a href="#others">Others</a>
+         <a href="#payments">Payments</a>
+         <a href="#options">Options</a>
+       </div>
+     </div>
+     <section id="home">
+       <h1>Welcome to Kavindu Gimhan's GitHub Home Page</h1>
+       <img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="Profile">
+       <p>Hi, I'm Kavindu Gimhan. This is my first repository and I'm excited to share my projects with you all!</p>
+       <div>
+         <a href="#projects" class="button">View Projects</a>
+         <a href="#contact" class="button button-secondary">Contact Me</a>
+       </div>
+     </section>
+     <section id="about" class="hidden-section">
+       <h2>About</h2>
+       <p>This is the about section. You can add more information about yourself here.</p>
+     </section>
+     <section id="projects" class="hidden-section">
+       <h2>Projects</h2>
+       <p>List your projects here.</p>
+     </section>
+     <section id="contact" class="hidden-section">
+       <h2>Contact</h2>
+       <p>Contact details or a contact form can go here.</p>
+     </section>
+   </body>
+</html>
